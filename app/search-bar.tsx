@@ -10,7 +10,8 @@ const Header = () => {
     useKeyPress(
         'enter',
         () => {
-            router.push(`/statements/${id}`);
+            // router.push(`${id}`);
+            console.log(router)
         },
         {
             events: ['keyup'],

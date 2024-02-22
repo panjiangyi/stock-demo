@@ -1,10 +1,7 @@
-
+import { redirect } from 'next/navigation'
+import { mainPage } from './menu';
 
 
 export default function Home() {
-  return (
-    <main>
-      main Page
-    </main>
-  );
+  redirect(mainPage.path);
 }
