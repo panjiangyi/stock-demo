@@ -8,7 +8,7 @@ import '@fontsource/roboto/700.css';
 import Header from "./search-bar";
 import { Menu, } from "./menu";
 import { fetchWithQueryParams } from "@/utils/fetch";
-
+import uniqBy from "lodash.uniqby";
 const inter = Inter({ subsets: ["latin"] });
 
 
@@ -30,7 +30,7 @@ async function queryStockInfo() {
     dataset: "TaiwanStockInfo",
     date: "2024-02-21"
   })
-  return res
+  return uniqBy(res, "stock_id")
 }
 
 

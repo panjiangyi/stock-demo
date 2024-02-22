@@ -1,46 +1,87 @@
 "use client"
 import { TextField } from '@mui/material';
 import { useRouter } from 'next/navigation'
-import { useKeyPress } from 'ahooks';
+import { useClickAway, useKeyPress } from 'ahooks';
 import { useRef, useState } from 'react';
 import { useCurrentDirection } from './menu';
-import { fetchWithQueryParams } from '@/utils/fetch';
 import { StockInfo } from './layout';
+import Fuse from 'fuse.js'
 
+const DropDownMenu: React.FC<{
+    visible: boolean;
+    onClose?: () => void;
+    stocks: StockInfo[]
+}> = ({ stocks, visible, onClose, }) => {
+    const router = useRouter()
+    const currentDirection = useCurrentDirection()
+
+
+    if (!visible) return null;
+    return (
+        <div
+            className=' cursor-pointer absolute left-0 right-0 top-16 bg-white max-h-96 overflow-auto '
+        >
+            {
+                stocks.map(stock => {
+                    return <div onClick={() => {
+                        if (currentDirection == null) {
+                            onClose?.()
+                            return
+                        }
+                        router.push(`${currentDirection.path}/${stock.stock_id}`);
+                        onClose?.()
+                    }}
+                        className='hover:bg-gray-200'
+                        key={stock.stock_id}>
+                        {stock.stock_name}
+                    </div>
+                })
+            }
+        </div>
+    )
+}
+
+const fuseOptions = {
+    includeScore: true,
+    includeMatches: true,
+    minMatchCharLength: 1,
+    threshold: 0.99,
+    keys: ['stock_id', 'stock_name'],
+};
 
 
 const Header: React.FC<{
     stocks: StockInfo[]
 }> = ({ stocks }) => {
-    console.log(stocks)
-    const [id, setId] = useState<string>('')
+    const [keyword, setKeyword] = useState<string>('')
+    const [dropdownMenuVisible, setDropdownMenuVisible] = useState(false)
     const inputRef = useRef<HTMLDivElement>(null);
-    const router = useRouter()
-    const currentDirection = useCurrentDirection()
-    useKeyPress(
-        'enter',
-        () => {
-            if (currentDirection == null) {
-                throw new Error('404');
-            }
-            router.push(`${currentDirection.path}/${id}`);
-        },
-        {
-            events: ['keyup'],
-            target: inputRef,
-        },
-    );
+
+    const filteredStocks = keyword == "" ? stocks : (new Fuse(stocks, fuseOptions)).search(keyword).map((k) => k.item);
+
     return <header className=" h-16 bg-white flex items-center justify-center">
-        <TextField
-            value={id}
-            onChange={(e) => {
-                setId(e.target.value)
+        <div className='relative'>
+            <TextField
+                value={keyword}
+                onChange={(e) => {
+                    setKeyword(e.target.value)
+                }}
+                onFocus={() => {
+                    setDropdownMenuVisible(true)
+                }}
+                ref={inputRef}
+                variant="outlined"
+                size="small"
+                placeholder="输入台/美股票代码，查看公司价值"
+            />
+            <DropDownMenu onClose={() => {
+                setDropdownMenuVisible(false)
             }}
-            ref={inputRef}
-            variant="outlined"
-            size="small"
-            placeholder="输入台/美股票代码，查看公司价值"
-        />
+                stocks={filteredStocks}
+                visible={dropdownMenuVisible}
+            />
+
+        </div>
     </header>
 }
 export default Header;
