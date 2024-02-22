@@ -13,13 +13,26 @@ export interface StockDetailItem {
     revenue_month: number;
     revenue_year: number;
 }
+export type HandledStockDetailItem = StockDetailItem & {
+    increase?: number
+}
 export async function queryStockDetail(id: string) {
     const res = await fetchWithQueryParams<StockDetailItem[]>('https://api.finmindtrade.com/api/v4/data', {
         dataset: "TaiwanStockMonthRevenue",
         data_id: '2330',
         start_date: "2019-01-02"
     })
-    return res
+    return res.map((k, i) => {
+        const lastYearMonth = res[i - 12]
+        if (lastYearMonth == null) {
+            return k
+        }
+        const increase = (k.revenue / lastYearMonth.revenue) - 1
+        return {
+            ...k,
+            increase: Math.round(increase * 10000) / 100
+        }
+    })
 }
 
 

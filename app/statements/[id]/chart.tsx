@@ -1,69 +1,86 @@
 "use client"
 import { useEffect, useRef } from "react"
 import * as echarts from "echarts";
-import { StockDetailItem } from "./page";
+import { HandledStockDetailItem, StockDetailItem } from "./page";
+import { formatNumber } from "@/utils/format-number";
 
-const option = (data: StockDetailItem[]) => ({
-    tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-            type: 'cross',
-            crossStyle: {
-                color: '#999'
-            }
-        }
-    },
+const option = (data: HandledStockDetailItem[]) => {
 
-    xAxis: [
-        {
-            type: 'category',
+    return {
+        tooltip: {
+            trigger: 'axis',
             axisPointer: {
-                type: 'shadow'
+                type: 'cross',
+                crossStyle: {
+                    color: '#999'
+                }
             }
-        }
-    ],
-    yAxis: [
-        {
-            type: 'value',
-            name: '每月营收',
-            min: Math.min(...data.map(k => k.revenue)),
-            max: Math.max(...data.map(k => k.revenue)),
-
         },
-        {
-            type: 'value',
-            name: '单月营收增长率',
-            min: Math.min(...data.map(k => k.revenue)),
-            max: Math.max(...data.map(k => k.revenue)),
-
+        legend: {
+            data: ['每月营收', '单月营收增长率',]
         },
-    ],
-    series: [
-        {
-            name: 'revenue',
-            type: 'line',
-            tooltip: {
-                valueFormatter: function (value: number) {
-                    return `每月营收${value}`;
+        xAxis: [
+            {
+                type: 'category',
+                axisPointer: {
+                    type: 'shadow'
+                },
+                data: data.map(k => {
+                    const arr = k.date.split('-');
+                    return `${arr[0]}-${arr[1]}`
+                })
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                name: '每月营收',
+                min: Math.min(...data.map(k => k.revenue)),
+                max: Math.max(...data.map(k => k.revenue)),
+                axisLabel: {
+                    formatter: function (value: number) {
+                        return formatNumber(value)
+                    }
                 }
             },
-            data: data.map(k => k.revenue)
-        }, {
-            name: 'increase',
-            type: 'bar',
-            tooltip: {
-                valueFormatter: function (value: number) {
-                    return `单月营收增长率${value}`;
-                }
+            {
+                type: 'value',
+                name: '单月营收增长率',
+
             },
-            data: data.map(k => k.revenue)
-        }
-    ]
-});
+        ],
+        series: [
+            {
+                name: '每月营收',
+                type: 'line',
+                yAxisIndex: 0,
+                tooltip: {
+                    valueFormatter: function (value: number) {
+                        return formatNumber(value);
+                    }
+                },
+                data: data.map(k => k.revenue)
+            },
+            {
+                name: '单月营收增长率',
+                yAxisIndex: 1,
+                type: 'bar',
+                tooltip: {
+                    valueFormatter: function (value: number) {
+                        return `${value}%`;
+                    }
+                },
+                data: data.map(k => {
+                    return k.increase ?? 0;
+                })
+            }
+        ]
+    }
+};
 
 
 export const Chart: React.FC<{
-    data: StockDetailItem[]
+    data: HandledStockDetailItem[]
 }> = ({ data }) => {
     const ref = useRef<HTMLDivElement>(null)
     useEffect(() => {
