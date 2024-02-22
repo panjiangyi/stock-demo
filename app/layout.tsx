@@ -25,10 +25,10 @@ export interface StockInfo {
   date: string;
 }
 
-async function queryStockInfo() {
+export async function queryStockInfo() {
   const res = await fetchWithQueryParams<StockInfo[]>('https://api.finmindtrade.com/api/v4/data', {
     dataset: "TaiwanStockInfo",
-    date: "2024-02-21"
+    date: "2024-02-21",
   })
   return uniqBy(res, "stock_id")
 }

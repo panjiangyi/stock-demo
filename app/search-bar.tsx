@@ -19,7 +19,7 @@ const DropDownMenu: React.FC<{
     if (!visible) return null;
     return (
         <div
-            className=' cursor-pointer absolute left-0 right-0 top-16 bg-white max-h-96 overflow-auto '
+            className=' z-10 border-2 border-gray-150 cursor-pointer absolute left-0 right-0 top-16 bg-white max-h-96 overflow-auto '
         >
             {
                 stocks.map(stock => {
