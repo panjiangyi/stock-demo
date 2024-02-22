@@ -3,15 +3,27 @@ import { TextField } from '@mui/material';
 import { useRouter } from 'next/navigation'
 import { useKeyPress } from 'ahooks';
 import { useRef, useState } from 'react';
-const Header = () => {
+import { useCurrentDirection } from './menu';
+import { fetchWithQueryParams } from '@/utils/fetch';
+import { StockInfo } from './layout';
+
+
+
+const Header: React.FC<{
+    stocks: StockInfo[]
+}> = ({ stocks }) => {
+    console.log(stocks)
     const [id, setId] = useState<string>('')
     const inputRef = useRef<HTMLDivElement>(null);
     const router = useRouter()
+    const currentDirection = useCurrentDirection()
     useKeyPress(
         'enter',
         () => {
-            // router.push(`${id}`);
-            console.log(router)
+            if (currentDirection == null) {
+                throw new Error('404');
+            }
+            router.push(`${currentDirection.path}/${id}`);
         },
         {
             events: ['keyup'],
