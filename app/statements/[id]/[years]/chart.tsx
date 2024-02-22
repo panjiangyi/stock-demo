@@ -81,6 +81,7 @@ const option = (data: HandledStockDetailItem[]) => {
 export const Chart: React.FC<{
     data: HandledStockDetailItem[]
 }> = ({ data }) => {
+
     const ref = useRef<HTMLDivElement>(null)
     useEffect(() => {
         var myChart = echarts.init(ref.current);

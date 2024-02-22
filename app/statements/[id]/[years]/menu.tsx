@@ -2,15 +2,19 @@
 import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { usePathname, useRouter } from 'next/navigation';
 
 enum Options {
-    three = "近三年",
-    five = "近五年",
-    eight = "近八年"
+    three = "3",
+    five = "5",
+    eight = "8"
 }
-export const SimpleListMenu = () => {
+export const SimpleListMenu: React.FC<{
+    id: string
+    years: string
+}> = ({ years, id }) => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [selectedOption, setSelectedOption] = React.useState<Options>(Options.three);
+    const [selectedOption, setSelectedOption] = React.useState<Options>(years as Options);
     const open = Boolean(anchorEl);
     const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -22,9 +26,11 @@ export const SimpleListMenu = () => {
         setAnchorEl(null);
     };
 
+    const router = useRouter()
+
     return (
         <div>
-            <div onClick={handleClickListItem} className=" bg-blue-500 p-1">{selectedOption}</div>
+            <div onClick={handleClickListItem} className=" bg-blue-500 p-1">近{selectedOption}年</div>
             <Menu
                 id="lock-menu"
                 anchorEl={anchorEl}
@@ -39,8 +45,9 @@ export const SimpleListMenu = () => {
                     Object.values(Options).map(k => {
                         return <MenuItem key={k} onClick={() => {
                             setSelectedOption(k)
+                            router.push(`/statements/${id}/${k}`)
                         }}>
-                            {k}
+                            近{k}年
                         </MenuItem>
                     })
                 }
