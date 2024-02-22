@@ -26,8 +26,7 @@ const option = (data: HandledStockDetailItem[]) => {
                     type: 'shadow'
                 },
                 data: data.map(k => {
-                    const arr = k.date.split('-');
-                    return `${arr[0]}-${arr[1]}`
+                    return k.shortDate
                 })
             }
         ],

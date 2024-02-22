@@ -47,7 +47,7 @@ export default async function RootLayout({
         <Header stocks={stocks} />
         <div className="flex items-start">
           <Menu className="w-40 flex-shrink-0 min-h-[calc(100vh-4rem)] border-r-2 border-gray-300 " />
-          <div className="p-4 flex-1">
+          <div className="p-4 flex-1 max-w-[calc(100vw-10rem)]">
             {children}
           </div>
         </div>
