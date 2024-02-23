@@ -1,6 +1,7 @@
 - 访问地址：
 
-https://stock-demo-vhfv.vercel.app/
+https://stock-demo-t96x.vercel.app/
+
 
 - 本地启动： ```npm run dev```
 
