@@ -8,6 +8,7 @@ import '@fontsource/roboto/700.css';
 import Header from "./search-bar";
 import { Menu, } from "./menu";
 import { queryStockInfo } from "@/api";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,7 +35,9 @@ export default async function RootLayout({
         <div className="flex items-start">
           <Menu className="w-40 flex-shrink-0 min-h-[calc(100vh-4rem)] border-r-2 border-gray-300 " />
           <div className="p-4 flex-1 max-w-[calc(100vw-10rem)]">
-            {children}
+            <Suspense fallback={<h1>Loading...</h1>}>
+              {children}
+            </Suspense>
           </div>
         </div>
       </body>
