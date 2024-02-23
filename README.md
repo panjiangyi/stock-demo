@@ -1,3 +1,11 @@
+- 访问地址：
+
+https://stock-demo-vhfv.vercel.app/
+
+- 本地启动： ```npm run dev```
+
+## 补充说明
+
 在sample/index.md
 
 有一个弹窗组件，是我自己写的比较好玩的一个东西。
