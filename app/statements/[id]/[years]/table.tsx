@@ -2,8 +2,8 @@
 import * as React from 'react';
 
 
-import { HandledStockDetailItem } from './page';
 import { formatNumber } from '@/utils/format-number';
+import { HandledStockDetailItem } from '@/api';
 
 
 export const StockTable: React.FC<{

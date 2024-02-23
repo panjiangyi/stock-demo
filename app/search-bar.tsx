@@ -1,11 +1,10 @@
 "use client"
 import { TextField } from '@mui/material';
 import { useRouter } from 'next/navigation'
-import { useClickAway, useKeyPress } from 'ahooks';
 import { useRef, useState } from 'react';
 import { useCurrentDirection } from './menu';
-import { StockInfo } from './layout';
 import Fuse from 'fuse.js'
+import { StockInfo } from '@/api';
 
 const DropDownMenu: React.FC<{
     visible: boolean;

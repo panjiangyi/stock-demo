@@ -1,8 +1,8 @@
 "use client"
 import { useEffect, useRef } from "react"
 import * as echarts from "echarts";
-import { HandledStockDetailItem, StockDetailItem } from "./page";
 import { formatNumber } from "@/utils/format-number";
+import { HandledStockDetailItem } from "@/api";
 
 const option = (data: HandledStockDetailItem[]) => {
 
@@ -84,8 +84,9 @@ export const Chart: React.FC<{
 
     const ref = useRef<HTMLDivElement>(null)
     useEffect(() => {
-        var myChart = echarts.init(ref.current);
+        const myChart = echarts.init(ref.current);
         myChart.setOption(option(data));
-    }, [])
+        return () => myChart.dispose()
+    }, [data])
     return <div ref={ref} className="h-[600px]"></div>
 }
