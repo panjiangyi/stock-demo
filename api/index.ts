@@ -32,6 +32,8 @@ export type HandledStockDetailItem = StockDetailItem & {
 export async function queryStockDetail(id: string, years: number): Promise<HandledStockDetailItem[]> {
     const res = await fetchWithQueryParams<StockDetailItem[]>('https://api.finmindtrade.com/api/v4/data', {
         dataset: "TaiwanStockMonthRevenue",
+        //不知道为什么，只有data_id为2330能获取到数据。
+        // data_id:id,
         data_id: '2330',
         start_date: `${2024 - years}-01-02`
     })

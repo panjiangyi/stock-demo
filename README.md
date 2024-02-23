@@ -4,6 +4,13 @@ https://stock-demo-vhfv.vercel.app/
 
 - 本地启动： ```npm run dev```
 
+- 接口问题
+```https://api.finmindtrade.com/api/v4/data```
+
+这个接口只有data_id为2330的时候才能下载到数据。
+
+所以我在请求处里写死了。
+
 ## 补充说明
 
 在sample/index.md
