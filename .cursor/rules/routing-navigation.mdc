@@ -1,0 +1,56 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Routing & Navigation Structure
+
+## App Router Structure
+Using Next.js 14 App Router with file-based routing in [app/](mdc:app/) directory.
+
+## Route Patterns
+
+### Dynamic Routes
+- `/statements/[id]/[years]` - Stock financial statements for specific years
+- `/profitability/[id]` - Profitability analysis for specific stock
+- `/security/[id]` - Security analysis for specific stock  
+- `/updates/[id]` - Latest updates for specific stock
+
+### Page Components
+- [app/statements/[id]/[years]/page.tsx](mdc:app/statements/[id]/[years]/page.tsx) - Main statements view
+- [app/profitability/[id]/page.tsx](mdc:app/profitability/[id]/page.tsx) - Profitability analysis
+- [app/security/[id]/page.tsx](mdc:app/security/[id]/page.tsx) - Security analysis
+- [app/updates/[id]/page.tsx](mdc:app/updates/[id]/page.tsx) - Updates view
+
+## Navigation Components
+
+### Main Menu
+[app/menu.tsx](mdc:app/menu.tsx) defines the main navigation:
+- 财务报表 (Financial Statements) - `/statements`
+- 最新动态 (Latest Updates) - `/updates`  
+- 获利能力 (Profitability) - `/profitability`
+- 安全性分析 (Security Analysis) - `/security`
+
+### Search Header
+[app/search-bar.tsx](mdc:app/search-bar.tsx) provides stock search functionality across all pages.
+
+## Navigation Hooks
+```typescript
+// Get current active menu item
+const currentDirection = useCurrentDirection()
+
+// Programmatic navigation
+import { redirect } from 'next/navigation'
+redirect(`/statements/${stockId}/3`)
+```
+
+## Layout Hierarchy
+1. [app/layout.tsx](mdc:app/layout.tsx) - Root layout with header and sidebar
+2. [app/statements/[id]/[years]/layout.tsx] - Nested layouts if needed
+3. Page components render within layout structure
+
+## Route Parameters
+- `id` - Stock ID (e.g., "2330")
+- `years` - Number of years for historical data (e.g., "3")
+
+Access via: `{ params }: { params: { id: string; years: string } }`

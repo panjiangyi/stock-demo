@@ -1,0 +1,59 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# API & Data Flow Patterns
+
+## API Layer Location
+All API functions are defined in [api/index.ts](mdc:api/index.ts)
+
+## Main API Functions
+
+### Stock Information
+```typescript
+queryStockInfo(): Promise<StockInfo[]>
+```
+- Fetches Taiwan stock list from FinMind API
+- Returns deduplicated stock information
+- Used for stock search and navigation
+
+### Stock Details
+```typescript
+queryStockDetail(id: string, years: number): Promise<HandledStockDetailItem[]>
+```
+- Fetches monthly revenue data for specified years
+- **Important**: Only works with stock_id "2330" due to API limitations
+- Calculates year-over-year growth percentages
+- Returns processed data with short date formats
+
+## Data Flow Pattern
+1. **Fetch**: [utils/fetch.ts](mdc:utils/fetch.ts) - Generic API wrapper with authentication token
+2. **Process**: API functions in [api/index.ts](mdc:api/index.ts) transform raw data
+3. **Display**: Components receive processed data and render charts/tables
+
+## Data Types
+```typescript
+// Basic stock information
+interface StockInfo {
+    industry_category: string;
+    stock_id: string;
+    stock_name: string;
+    type: string;
+    date: string;
+}
+
+// Monthly revenue data with calculations
+type HandledStockDetailItem = StockDetailItem & {
+    increase?: number;      // YoY growth percentage
+    shortDate: string;      // Formatted date (YY/MM)
+}
+```
+
+## Authentication
+API requests include a hardcoded JWT token in [utils/fetch.ts](mdc:utils/fetch.ts) for FinMind API access.
+
+## Error Handling
+- Network errors throw standard Error objects
+- 404 handling for invalid stock IDs in page components
+- Loading states managed with Suspense boundaries

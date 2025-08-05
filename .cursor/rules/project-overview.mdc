@@ -1,0 +1,44 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Stock Demo - Project Overview
+
+## Purpose
+Taiwan stock analysis dashboard built with Next.js 14, providing financial data visualization and analysis tools.
+
+## Tech Stack
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS + Material-UI components
+- **Charts**: ECharts for data visualization
+- **Data Source**: FinMind Taiwan Stock API
+- **State Management**: React hooks with custom utilities (ahooks)
+
+## Key Features
+1. **Financial Statements** (`/statements`) - Monthly revenue analysis with charts and tables
+2. **Latest Updates** (`/updates`) - Stock news and updates
+3. **Profitability Analysis** (`/profitability`) - Financial performance metrics
+4. **Security Analysis** (`/security`) - Risk and safety assessments
+
+## Project Structure
+```
+├── [app/](mdc:app) - Next.js App Router pages and layouts
+├── [api/](mdc:api) - API layer and data fetching functions
+├── [utils/](mdc:utils) - Utility functions and helpers
+├── [sample/](mdc:sample) - Example components (async modal)
+└── [package.json](mdc:package.json) - Dependencies and scripts
+```
+
+## Entry Point
+- Main page: [app/page.tsx](mdc:app/page.tsx) - Redirects to first stock's 3-year statements
+- Layout: [app/layout.tsx](mdc:app/layout.tsx) - Root layout with header, menu, and content area
+
+## Development
+- Start: `npm run dev`
+- Build: `npm run build`
+- Production: `npm start`
+
+## Important Note
+The FinMind API has limitations - only stock_id "2330" returns data, so this is hardcoded in [api/index.ts](mdc:api/index.ts).
