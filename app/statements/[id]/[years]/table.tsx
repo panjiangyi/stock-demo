@@ -31,7 +31,7 @@ export const StockTable: React.FC<{
     [&::-webkit-scrollbar-track]:rounded-full
     [&::-webkit-scrollbar-button]:hidden
     focus:outline-none focus:ring-2 focus:ring-blue-500
-    motion-safe:scroll-smooth"
+    "
           tabIndex={0}
           role="region"
           aria-label="Scrollable table"

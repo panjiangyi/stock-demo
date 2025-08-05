@@ -1,8 +1,7 @@
+import { queryStockInfo } from '@/api'
+import { redirect } from 'next/navigation'
 
 export default async function Page({ params }: { params: { id: string } }) {
-
-    return <>
-        <h1>statements</h1>
-    </>
-
+  const stocks = await queryStockInfo()
+  redirect(`/statements/${stocks[0].stock_id}/3`)
 }
