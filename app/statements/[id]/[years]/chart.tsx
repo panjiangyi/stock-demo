@@ -17,7 +17,8 @@ const option = (data: HandledStockDetailItem[]) => {
             }
         },
         legend: {
-            data: ['每月营收', '单月营收增长率',]
+            data: ['每月營收', '每月營收年增率'],
+            bottom: 10
         },
         xAxis: [
             {
@@ -33,9 +34,8 @@ const option = (data: HandledStockDetailItem[]) => {
         yAxis: [
             {
                 type: 'value',
-                name: '每月营收',
-                min: Math.min(...data.map(k => k.revenue)),
-                max: Math.max(...data.map(k => k.revenue)),
+                name: '千元',
+                position: 'left',
                 axisLabel: {
                     formatter: function (value: number) {
                         return formatNumber(value)
@@ -44,15 +44,21 @@ const option = (data: HandledStockDetailItem[]) => {
             },
             {
                 type: 'value',
-                name: '单月营收增长率',
-
+                name: '%',
+                position: 'right',
+                axisLabel: {
+                    formatter: '{value}%'
+                }
             },
         ],
         series: [
             {
-                name: '每月营收',
-                type: 'line',
+                name: '每月營收',
+                type: 'bar',
                 yAxisIndex: 0,
+                itemStyle: {
+                    color: '#FCD34D' // 黄色
+                },
                 tooltip: {
                     valueFormatter: function (value: number) {
                         return formatNumber(value);
@@ -61,9 +67,15 @@ const option = (data: HandledStockDetailItem[]) => {
                 data: data.map(k => k.revenue)
             },
             {
-                name: '单月营收增长率',
+                name: '每月營收年增率',
                 yAxisIndex: 1,
-                type: 'bar',
+                type: 'line',
+                itemStyle: {
+                    color: '#EF4444' // 红色
+                },
+                lineStyle: {
+                    color: '#EF4444' // 红色线条
+                },
                 tooltip: {
                     valueFormatter: function (value: number) {
                         return `${value}%`;

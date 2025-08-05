@@ -30,7 +30,7 @@ export const SimpleListMenu: React.FC<{
 
     return (
         <div>
-            <div onClick={handleClickListItem} className=" bg-blue-500 p-1">近{selectedOption}年</div>
+            <div onClick={handleClickListItem} className="cursor-pointer text-white">近{selectedOption}年</div>
             <Menu
                 id="lock-menu"
                 anchorEl={anchorEl}

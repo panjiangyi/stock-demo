@@ -15,24 +15,25 @@ export const StockTable: React.FC<{
         ref.current.scrollLeft = Number.MAX_SAFE_INTEGER;
     }, [])
     return (
-        <div className='flex my-2 border-2 border-gray-50'>
-            <div className=' shrink-0 border-r-2 border-gray-50'>
-                <div className='pl-1 border-b-2 border-gray-50 leading-10'>年度月份</div>
-                <div className='pl-1 border-b-2 border-gray-50 leading-10'>每月营收</div>
-                <div className='pl-1 leading-10'>单月营收增长率%</div>
-            </div>
-            <div ref={ref} className='flex-1 flex overflow-auto m-w-[250px] text-center'>
-                {
-                    data.map(k => {
-                        return <div key={k.date}>
-                            <div className='pl-1 border-b-2 border-r-2 border-gray-50 leading-10'>{k.shortDate}</div>
-                            <div className='pl-1 border-b-2 border-r-2 border-gray-50 leading-10'>{formatNumber(k.revenue)}</div>
-                            <div className='pl-1 border-r-2 border-gray-50  leading-10'>{k.increase ?? '-'}</div>
-                        </div>
-                    })
-                }
+        <div className='border border-gray-200 rounded'>
+            <div className='flex'>
+                <div className='bg-gray-50 border-r border-gray-200 min-w-[120px]'>
+                    <div className='px-3 py-2 border-b border-gray-200 font-medium text-sm'>年度月份</div>
+                    <div className='px-3 py-2 border-b border-gray-200 font-medium text-sm'>每月營收</div>
+                    <div className='px-3 py-2 font-medium text-sm'>每月營收年增率 (%)</div>
+                </div>
+                <div ref={ref} className='flex-1 flex overflow-auto'>
+                    {
+                        data.map((k, index) => {
+                            return <div key={k.date} className={`min-w-[100px] text-center ${index !== data.length - 1 ? 'border-r border-gray-200' : ''}`}>
+                                <div className='px-3 py-2 border-b border-gray-200 text-sm'>{k.shortDate}</div>
+                                <div className='px-3 py-2 border-b border-gray-200 text-sm'>{formatNumber(k.revenue)}</div>
+                                <div className='px-3 py-2 text-sm'>{k.increase ?? '--'}</div>
+                            </div>
+                        })
+                    }
+                </div>
             </div>
         </div>
-
     );
 }

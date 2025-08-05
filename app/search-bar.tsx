@@ -71,7 +71,7 @@ const Header: React.FC<{
                 ref={inputRef}
                 variant="outlined"
                 size="small"
-                placeholder="输入台/美股票代码，查看公司价值"
+                placeholder="輸入股 / 真股代號 · 董事會公司簡介"
             />
             <DropDownMenu onClose={() => {
                 setDropdownMenuVisible(false)
