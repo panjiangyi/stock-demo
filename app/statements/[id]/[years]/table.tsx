@@ -3,6 +3,7 @@ import * as React from 'react'
 
 import { formatNumber } from '@/utils/format-number'
 import { HandledStockDetailItem } from '@/api'
+import dayjs from 'dayjs'
 
 export const StockTable: React.FC<{
   data: HandledStockDetailItem[]
@@ -17,7 +18,7 @@ export const StockTable: React.FC<{
       <div className="flex">
         <div className="bg-gray-50 border-r border-gray-200 min-w-[140px] font-bold">
           <div className="px-3 py-2 border-b border-gray-200 text-sm">年度月份</div>
-          <div className="px-3 py-2 border-b border-gray-200 text-sm">每月營收</div>
+          <div className="px-3 py-2 border-b border-gray-200 text-sm">每月營收(千元)</div>
           <div className="px-3 py-2 text-sm">單月營收年增率 (%)</div>
         </div>
         <div
@@ -42,9 +43,11 @@ export const StockTable: React.FC<{
                 key={k.date}
                 className={`min-w-[120px] text-center ${index !== data.length - 1 ? 'border-r border-gray-200' : ''}`}
               >
-                <div className="px-3 py-2 border-b border-gray-200 text-sm font-bold">{k.date}</div>
-                <div className="px-3 py-2 border-b border-gray-200 text-sm">{formatNumber(k.revenue)}</div>
-                <div className="px-3 py-2 text-sm">{k.increase ?? '--'}</div>
+                <div className="px-3 py-2 border-b border-gray-200 text-sm font-bold">
+                  {dayjs(k.date).format('YYYY/MM')}
+                </div>
+                <div className="px-3 py-2 border-b border-gray-200 text-sm">{formatNumber(k.revenue / 1000)}</div>
+                <div className="px-3 py-2 text-sm">{k.increase ? `${k.increase}%` : '-'}</div>
               </div>
             )
           })}

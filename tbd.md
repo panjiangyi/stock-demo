@@ -1,3 +1,1 @@
-1. add .env
-2. add loading
-3. add empty page
+1. table 列表，要實現年增長率全部都有
