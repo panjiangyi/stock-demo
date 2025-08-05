@@ -42,7 +42,7 @@ export const StockTable: React.FC<{
                 key={k.date}
                 className={`min-w-[120px] text-center ${index !== data.length - 1 ? 'border-r border-gray-200' : ''}`}
               >
-                <div className="px-3 py-2 border-b border-gray-200 text-sm font-bold">{k.shortDate}</div>
+                <div className="px-3 py-2 border-b border-gray-200 text-sm font-bold">{k.date}</div>
                 <div className="px-3 py-2 border-b border-gray-200 text-sm">{formatNumber(k.revenue)}</div>
                 <div className="px-3 py-2 text-sm">{k.increase ?? '--'}</div>
               </div>
