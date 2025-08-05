@@ -18,7 +18,7 @@ export const StockTable: React.FC<{
         <div className="bg-gray-50 border-r border-gray-200 min-w-[140px] font-bold">
           <div className="px-3 py-2 border-b border-gray-200 text-sm">年度月份</div>
           <div className="px-3 py-2 border-b border-gray-200 text-sm">每月營收</div>
-          <div className="px-3 py-2 text-sm">每月營收年增率 (%)</div>
+          <div className="px-3 py-2 text-sm">單月營收年增率 (%)</div>
         </div>
         <div
           ref={ref}
