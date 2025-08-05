@@ -22,7 +22,7 @@ export const StockTable: React.FC<{
         </div>
         <div
           ref={ref}
-          className="flex-1 flex overflow-x-auto
+          className="flex-1 flex overflow-x-auto focus:
     [&::-webkit-scrollbar]:h-2
     [&::-webkit-scrollbar-track]:bg-gray-100
     [&::-webkit-scrollbar-thumb]:bg-gray-400
@@ -30,7 +30,7 @@ export const StockTable: React.FC<{
     [&::-webkit-scrollbar-thumb]:rounded-full
     [&::-webkit-scrollbar-track]:rounded-full
     [&::-webkit-scrollbar-button]:hidden
-    focus:outline-none focus:ring-2 focus:ring-blue-500
+    focus:outline-none 
     "
           tabIndex={0}
           role="region"
