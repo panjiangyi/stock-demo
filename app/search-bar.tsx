@@ -27,7 +27,7 @@ const Header: React.FC<{
           renderInput={params => (
             <TextField
               {...params}
-              placeholder="輸入股 / 真股代號 · 董事會公司簡介"
+              placeholder="輸入台/美股票代號，查看公司價值"
               variant="outlined"
               size="small"
               sx={{
