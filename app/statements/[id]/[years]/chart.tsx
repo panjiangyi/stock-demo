@@ -13,12 +13,26 @@ const option = (data: HandledStockDetailItem[]) => {
                 type: 'cross',
                 crossStyle: {
                     color: '#999'
+                },
+                label: {
+                    formatter: function (obj:any) {
+                        if(obj.axisDimension === "y") {
+                            if(obj.axisIndex === 0) {
+                                return `${formatNumber(obj.value/1000)}k`
+                            } else {
+                                return `${obj.value.toFixed(2)}%`
+                            }
+                        } else if(obj.axisDimension === "x") {
+                            return obj.value
+                        }
+                    }
                 }
             }
         },
         legend: {
             data: ['每月營收', '每月營收年增率'],
-            bottom: 10
+            top: 20,
+            left:150
         },
         xAxis: [
             {
@@ -38,7 +52,7 @@ const option = (data: HandledStockDetailItem[]) => {
                 position: 'left',
                 axisLabel: {
                     formatter: function (value: number) {
-                        return formatNumber(value)
+                        return formatNumber(value/1000)
                     }
                 }
             },
@@ -61,7 +75,7 @@ const option = (data: HandledStockDetailItem[]) => {
                 },
                 tooltip: {
                     valueFormatter: function (value: number) {
-                        return formatNumber(value);
+                        return `${formatNumber(value/1000)}k`;
                     }
                 },
                 data: data.map(k => k.revenue)
