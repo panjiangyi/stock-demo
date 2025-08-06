@@ -8,14 +8,6 @@ import dayjs from 'dayjs'
 export const StockTable: React.FC<{
   data: HandledStockDetailItem[]
 }> = ({ data }) => {
-  const ref = React.useRef<HTMLDivElement>(null)
-  React.useEffect(() => {
-    if (ref.current == null) return
-    ref.current.scrollTo({
-      left: ref.current.scrollWidth,
-      behavior: 'smooth',
-    })
-  }, [])
   return (
     <div className="border border-gray-200 rounded-lg shadow-sm">
       <div className="flex">
@@ -25,8 +17,8 @@ export const StockTable: React.FC<{
           <div className="px-3 py-2 text-sm">單月營收年增率 (%)</div>
         </div>
         <div
-          ref={ref}
-          className="flex-1 flex overflow-x-auto focus:
+          className="flex-1 flex overflow-x-auto
+           focus:
     [&::-webkit-scrollbar]:h-2
     [&::-webkit-scrollbar-track]:bg-gray-100
     [&::-webkit-scrollbar-thumb]:bg-gray-400
@@ -39,12 +31,18 @@ export const StockTable: React.FC<{
           tabIndex={0}
           role="region"
           aria-label="Scrollable table"
+          style={{
+            direction: 'rtl',
+          }}
         >
-          {data.map((k, index) => {
+          {[...data].reverse().map((k, index) => {
             return (
               <div
                 key={k.date}
                 className={`min-w-[120px] text-center ${index !== data.length - 1 ? 'border-r border-gray-200' : ''}`}
+                style={{
+                  direction: 'ltr',
+                }}
               >
                 <div className="px-3 py-2 border-b border-gray-200 text-sm font-bold">
                   {dayjs(k.date).format('YYYY/MM')}
