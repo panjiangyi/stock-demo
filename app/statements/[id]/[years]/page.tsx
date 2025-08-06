@@ -5,11 +5,13 @@ import { StockTable } from './table'
 import { SimpleListMenu } from './menu'
 import { queryStockDetail, queryStockInfo } from '@/api'
 
-export default async function StockDetail({ params }: { params: { id: string; years: string } }) {
+export default async function StockDetail({ params }: { params?: { id?: string; years?: string } }) {
   const stocks = await queryStockInfo()
-  const currentStock = stocks.find(stock => stock.stock_id === params.id)
+  const currentStock = stocks.find(stock => stock.stock_id === params?.id) ?? stocks[0]
+  const stockID = currentStock.stock_id
+  const years = Number(params?.years ?? 3)
   if (currentStock == null) return <h1>404</h1>
-  const detail = await queryStockDetail(currentStock.stock_id, Number(params.years))
+  const detail = await queryStockDetail(currentStock.stock_id, years)
 
   // 检查 detail 是否为空数组
   if (!detail || detail.length === 0) {
@@ -25,7 +27,7 @@ export default async function StockDetail({ params }: { params: { id: string; ye
           <div className="flex items-center justify-between p-4 border-b">
             <div className="bg-blue-500 text-white px-3 py-1 rounded text-sm font-medium">每月營收</div>
             <div className="bg-blue-500 text-white px-3 py-1 rounded text-sm font-medium">
-              <SimpleListMenu id={params.id} years={params.years} />
+              <SimpleListMenu id={stockID} years={`${years}`} />
             </div>
           </div>
           <div className="p-8 text-center">
@@ -59,7 +61,7 @@ export default async function StockDetail({ params }: { params: { id: string; ye
         <div className="flex items-center justify-between p-4 border-b">
           <div className="bg-blue-500 text-white px-3 py-1 rounded text-sm font-medium">每月營收</div>
           <div className="bg-blue-500 text-white px-3 py-1 rounded text-sm font-medium">
-            <SimpleListMenu id={params.id} years={params.years} />
+            <SimpleListMenu id={stockID} years={`${years}`} />
           </div>
         </div>
         <div className="p-4">

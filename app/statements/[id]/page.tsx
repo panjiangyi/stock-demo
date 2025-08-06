@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
+import StockDetail from './[years]/page'
 
 export default async function Page({ params }: { params: { id: string } }) {
-    redirect(`/statements/${params.id}/3`);
+  return <StockDetail />
 }

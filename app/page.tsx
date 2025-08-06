@@ -1,8 +1,5 @@
-import { queryStockInfo } from '@/api';
-import { redirect } from 'next/navigation'
-
+import StockDetail from './statements/[id]/[years]/page'
 
 export default async function Home() {
-  const stocks = await queryStockInfo();
-  redirect(`/statements/${stocks[0].stock_id}/3`);
+  return <StockDetail />
 }
