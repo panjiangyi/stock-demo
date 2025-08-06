@@ -47,7 +47,7 @@ export const SimpleListMenu: React.FC<{
               key={k}
               onClick={() => {
                 setSelectedOption(k)
-                router.push(`/statements/${id}/${k}`)
+                router.push(`/stock/${id}/${k}`)
               }}
             >
               近{k}年

@@ -11,7 +11,6 @@ export const StockTable: React.FC<{
   const ref = React.useRef<HTMLDivElement>(null)
   React.useEffect(() => {
     if (ref.current == null) return
-    // ref.current.scrollLeft = Number.MAX_SAFE_INTEGER
     ref.current.scrollTo({
       left: ref.current.scrollWidth,
       behavior: 'smooth',

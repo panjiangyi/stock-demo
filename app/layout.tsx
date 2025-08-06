@@ -8,7 +8,7 @@ import '@fontsource/roboto/700.css'
 import Header from './search-bar'
 import { queryStockInfo } from '@/api'
 import { Suspense } from 'react'
-import StatementsPageSkeleton from '@/skeleton/statements-skeleton'
+import StatementsPageSkeleton from '@/skeleton/stock-skeleton'
 
 const inter = Inter({ subsets: ['latin'] })
 

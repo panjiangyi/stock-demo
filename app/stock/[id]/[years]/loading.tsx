@@ -1,4 +1,4 @@
-import StatementsPageSkeleton from '@/skeleton/statements-skeleton'
+import StatementsPageSkeleton from '@/skeleton/stock-skeleton'
 
 export default function Loading() {
   return <StatementsPageSkeleton />

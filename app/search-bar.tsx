@@ -13,7 +13,7 @@ const Header: React.FC<{
 
   const handleStockSelect = (stock: StockInfo | null) => {
     if (stock) {
-      router.push(`/statements/${stock.stock_id}/${years ?? 3}`)
+      router.push(`/stock/${stock.stock_id}/${years ?? 3}`)
     }
   }
 
