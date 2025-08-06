@@ -8,7 +8,7 @@ import '@fontsource/roboto/700.css'
 import Header from './search-bar'
 import { queryStockInfo } from '@/api'
 import { Suspense } from 'react'
-import StatementsPageSkeleton from '@/skeleton/stock-skeleton'
+import StockPageSkeleton from '@/skeleton/stock-skeleton'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,7 +27,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <Header stocks={stocks} />
         <div className="max-w-6xl mx-auto p-4">
-          <Suspense fallback={<StatementsPageSkeleton />}>{children}</Suspense>
+          <Suspense fallback={<StockPageSkeleton />}>{children}</Suspense>
         </div>
       </body>
     </html>

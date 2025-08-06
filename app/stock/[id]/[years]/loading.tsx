@@ -1,5 +1,5 @@
-import StatementsPageSkeleton from '@/skeleton/stock-skeleton'
+import StockPageSkeleton from '@/skeleton/stock-skeleton'
 
 export default function Loading() {
-  return <StatementsPageSkeleton />
+  return <StockPageSkeleton />
 }

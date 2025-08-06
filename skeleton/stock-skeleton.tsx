@@ -1,10 +1,6 @@
 import { Skeleton, Box, Stack, Grid } from '@mui/material'
 
-interface StatementsPageSkeletonProps {
-  // No props needed for skeleton
-}
-
-export default function StatementsPageSkeleton({}: StatementsPageSkeletonProps) {
+export default function StockPageSkeleton() {
   return (
     <div className="space-y-6">
       {/* Header Section */}
